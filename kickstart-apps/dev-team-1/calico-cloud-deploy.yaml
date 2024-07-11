@@ -9,8 +9,8 @@ spec:
     name: in-cluster
     namespace: argocd
   source:
-    path: argo-apps/install
-    repoURL: 'git@github.com:VerodaClient/calico-cloud.git'
+    path: argo-apps/calico-cloud/dev-team-1 
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
   project: default
   syncPolicy:
