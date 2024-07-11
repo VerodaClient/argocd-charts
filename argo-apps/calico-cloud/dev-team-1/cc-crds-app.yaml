@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calico-cloud-crds
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://installer.calicocloud.io/charts'
+    targetRevision: "v1.16.2"
+    chart: calico-cloud-crds
+  destination:
+    name: ce-mgmt
+    namespace: calico-cloud
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  metadata:
+    annotations:
+      argocd.argoproj.io/sync-wave: "1"
+

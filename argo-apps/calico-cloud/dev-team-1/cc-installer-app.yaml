@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calico-cloud
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://installer.calicocloud.io/charts'
+    targetRevision: "v1.16.2"
+    chart: calico-cloud
+    helm:
+      parameters:
+        - name: installer.clusterName
+          value: "leon-argocd-devteam-1"
+        - name: installer.calicoCloudVersion
+          value: "v19.2.0"
+  destination:
+    name: ce-mgmt
+    namespace: calico-cloud
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  metadata:
+    annotations:
+      argocd.argoproj.io/sync-wave: "2"  # Ensures this application is deployed after calico-cloud-crds
+

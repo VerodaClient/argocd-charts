@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  source:
+    path: argo-apps/install
+    repoURL: 'git@github.com:VerodaClient/calico-cloud.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+  syncWaves:
+  - name: wave1
+    applications:
+    - client-credentials
+  - name: wave2
+    applications:
+    - calico-cloud-crds
+  - name: wave3
+    applications:
+    - calico-cloud
+
