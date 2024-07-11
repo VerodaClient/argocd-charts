@@ -8,7 +8,7 @@ spec:
     name: ce-mgmt
     namespace: calico-cloud 
   source:
-    path: charts/client-credentials/dev-team-1
+    path: charts/client-credentials/dev-team-1-creds
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
   annotations:
