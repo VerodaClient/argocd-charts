@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: app-of-apps
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "-100"
 spec:
   destination:
     name: in-cluster
@@ -19,11 +19,14 @@ spec:
   syncWaves:
   - name: wave1
     applications:
-    - client-credentials
+    - sealed-secrets
   - name: wave2
     applications:
-    - calico-cloud-crds
+    - client-credentials
   - name: wave3
+    applications:
+    - calico-cloud-crds
+  - name: wave4
     applications:
     - calico-cloud
 
