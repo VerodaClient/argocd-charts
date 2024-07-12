@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: calico-cloud
   namespace: argocd
+  annotations:
+      argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
@@ -22,7 +24,7 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  metadata:
-    annotations:
-      argocd.argoproj.io/sync-wave: "2"  # Ensures this application is deployed after calico-cloud-crds
+#  metadata:
+#    annotations:
+#      argocd.argoproj.io/sync-wave: "2"  # Ensures this application is deployed after calico-cloud-crds
 
