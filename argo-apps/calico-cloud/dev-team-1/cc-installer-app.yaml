@@ -16,7 +16,7 @@ spec:
         - name: installer.clusterName
           value: "leon-argocd-devteam-1"
         - name: installer.calicoCloudVersion
-          value: "v19.3.0"
+          value: "v19.2.0"
   destination:
     name: ce-mgmt
     namespace: calico-cloud
