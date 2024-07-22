@@ -9,7 +9,7 @@ spec:
   project: default
   source:
 #    repoURL: 'https://installer.calicocloud.io/charts'
-    repoURL: 'git@github.com:VerodaClient/argocd-charts.git
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     path: charts/calico-cloud
     targetRevision: "v1.16.2"
 #    chart: calico-cloud
