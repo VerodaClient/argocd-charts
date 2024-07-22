@@ -11,7 +11,7 @@ spec:
     #repoURL: 'https://installer.calicocloud.io/charts'
     path: charts/calico-cloud-crds
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
-    targetRevision: "v1.16.2"
+    targetRevision: HEAD
     helm:
       valueFiles:
       - values.yaml
