@@ -8,15 +8,19 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://installer.calicocloud.io/charts'
+#    repoURL: 'https://installer.calicocloud.io/charts'
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git
+    path: charts/calico-cloud
     targetRevision: "v1.16.2"
-    chart: calico-cloud
+#    chart: calico-cloud
     helm:
-      parameters:
-        - name: installer.clusterName
-          value: "leon-argocd-devteam-1"
-        - name: installer.calicoCloudVersion
-          value: "v19.3.0"
+      valueFiles:
+      - values.yaml
+#      parameters:
+#        - name: installer.clusterName
+#          value: "leon-argocd-devteam-1"
+#        - name: installer.calicoCloudVersion
+#          value: "v19.3.0"
   destination:
     name: ce-mgmt
     namespace: calico-cloud

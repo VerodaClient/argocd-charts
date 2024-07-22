@@ -8,9 +8,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://installer.calicocloud.io/charts'
+    #repoURL: 'https://installer.calicocloud.io/charts'
+    path: charts/calico-cloud-crds
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: "v1.16.2"
-    chart: calico-cloud-crds
+    helm:
+      valueFiles:
+      - values.yaml
   destination:
     name: ce-mgmt
     namespace: calico-cloud
