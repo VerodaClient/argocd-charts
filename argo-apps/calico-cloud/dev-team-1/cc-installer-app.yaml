@@ -9,20 +9,13 @@ spec:
   project: default
   namePrefix: ""
   source:
-#    repoURL: 'https://installer.calicocloud.io/charts'
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     path: charts/calico-cloud
     targetRevision: HEAD
-#    chart: calico-cloud
     helm:
       releaseName: ""
       valueFiles:
       - values.yaml
-#      parameters:
-#        - name: installer.clusterName
-#          value: "leon-argocd-devteam-1"
-#        - name: installer.calicoCloudVersion
-#          value: "v19.3.0"
   destination:
     name: ce-mgmt
     namespace: calico-cloud
@@ -30,7 +23,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
-#  metadata:
-#    annotations:
-#      argocd.argoproj.io/sync-wave: "2"  # Ensures this application is deployed after calico-cloud-crds
 
