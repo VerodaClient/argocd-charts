@@ -4,7 +4,7 @@ metadata:
   labels:
     k8s-app: calico-cloud-updater
     {{- include "calico-cloud.labels" . | nindent 4 }}
-  name: {{ include "calico-cloud" . }}
+  name: {{ include "calico-cloud.fullname" . }}
 spec:
   replicas: 1
   selector:
