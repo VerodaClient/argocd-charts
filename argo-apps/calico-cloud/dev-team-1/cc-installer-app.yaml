@@ -7,6 +7,7 @@ metadata:
       argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
+  namePrefix: ""
   source:
 #    repoURL: 'https://installer.calicocloud.io/charts'
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
