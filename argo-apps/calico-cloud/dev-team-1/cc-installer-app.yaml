@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: calico-cloud
+  name: leons-calico-cloud
   namespace: argocd
   annotations:
       argocd.argoproj.io/sync-wave: "2"
