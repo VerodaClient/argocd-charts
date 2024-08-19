@@ -13,12 +13,12 @@ spec:
     path: charts/calico-cloud
     targetRevision: HEAD
     helm:
-      releaseName: "leons"
+      releaseName: "calico-cloud"
       valueFiles:
       - values.yaml
       values: |
-        nameOverride: "leons"
-        fullnameOverride: "leons"
+        nameOverride: "calico-cloud"
+        fullnameOverride: "calico-cloud"
   destination:
     name: ce-mgmt
     namespace: calico-cloud
