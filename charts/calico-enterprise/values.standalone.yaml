@@ -1,0 +1,19 @@
+standalonecluster:
+  enabled: true
+tigera-operator:
+  imagePullSecrets: # ideally we should not need this but there could be a bug in the helm-charts
+    tigera-pull-secret: unusedvalue
+  installation:
+    enabled: true
+    variant: TigeraSecureEnterprise
+    kubernetesProvider: "EKS"
+    imagePullSecrets:
+      - name: tigera-pull-secret
+
+  monitor:
+    enabled: true
+
+
+  tigera-prometheus-operator:
+    enabled: false
+
