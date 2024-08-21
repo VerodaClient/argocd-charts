@@ -19,7 +19,7 @@ spec:
 #        nameOverride: "calico-cloud"
 #        fullnameOverride: "calico-cloud"
   destination:
-    name: ce-mgmt
+    name: ce-mngd
     namespace: calico-cloud
   syncPolicy:
     automated:
