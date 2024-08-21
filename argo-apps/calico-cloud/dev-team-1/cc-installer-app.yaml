@@ -15,9 +15,6 @@ spec:
       releaseName: "calico-cloud"
       valueFiles:
       - values.yaml
-#      values: |
-#        nameOverride: "calico-cloud"
-#        fullnameOverride: "calico-cloud"
   destination:
     name: ce-mgmt
     namespace: calico-cloud
