@@ -5,14 +5,12 @@ metadata:
   name: tigera-manager-mcm
   namespace: tigera-manager
   annotations:
-#    nginx.ingress.kubernetes.io/rewrite-target: /
-#    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     external-dns.alpha.kubernetes.io/hostname: leonmcm.training.tigera.ca 
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:
-  - host: leonmcm.training.tigera.ca 
+  - host: leonargomcm.training.tigera.ca 
     http:
       paths:
       - path: /
