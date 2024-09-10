@@ -12,6 +12,9 @@ spec:
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     path: charts/ingress-nginx
     targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.mgmt.yaml
   destination:
     name: ce-mgmt
   syncPolicy:
