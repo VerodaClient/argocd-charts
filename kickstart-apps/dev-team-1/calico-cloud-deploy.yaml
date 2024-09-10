@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: calico-cloud-app-of-apps
   annotations:
     argocd.argoproj.io/sync-wave: "-100"
 spec:
