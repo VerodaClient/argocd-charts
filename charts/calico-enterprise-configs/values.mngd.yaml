@@ -1,4 +1,2 @@
 mngdcluster:
   enabled: true
-ingress-nginx:
-  namespaceOverride: ingress-nginx
