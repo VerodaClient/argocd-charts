@@ -12,7 +12,7 @@ metadata:
 #    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:
-  - host: leonman.training.tigera.ca 
+  - host: leonargoman.training.tigera.ca 
     http:
       paths:
       - path: /

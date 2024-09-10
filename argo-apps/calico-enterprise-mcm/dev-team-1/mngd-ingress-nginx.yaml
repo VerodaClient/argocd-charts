@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mngd-ingress
+  name: mngd-ingress-1
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
