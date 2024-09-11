@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: calico-enterprise-mgmt
+  name: mgmt-calico-enterprise
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 spec:
@@ -15,7 +15,7 @@ spec:
     helm:
       valueFiles:
       - values.mgmt.yaml
-  project: default
+  project: dev-team-1
   syncPolicy:
     automated:
       selfHeal: true

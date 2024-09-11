@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: calico-enterprise-managed-1
+  name: mngd-calico-enterprise-1
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
@@ -15,7 +15,7 @@ spec:
     helm:
       valueFiles:
         - values.mngd.yaml
-  project: default
+  project: dev-team-1
   syncPolicy:
     automated:
       selfHeal: true
