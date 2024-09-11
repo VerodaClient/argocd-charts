@@ -17,6 +17,7 @@ spec:
       - values.mgmt.yaml
   destination:
     name: ce-mgmt
+    namespace: ingress-nginx
   syncPolicy:
     automated:
       selfHeal: true

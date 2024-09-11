@@ -14,6 +14,7 @@ spec:
     targetRevision: HEAD
   destination:
     name: ce-mngd
+    namespace: ingress-nginx
   syncPolicy:
     automated:
       selfHeal: true
