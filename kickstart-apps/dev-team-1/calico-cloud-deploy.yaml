@@ -12,7 +12,7 @@ spec:
     path: argo-apps/calico-cloud/dev-team-1 
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
-  project: default
+  project: infra-apps
   syncPolicy:
     automated:
       selfHeal: true
