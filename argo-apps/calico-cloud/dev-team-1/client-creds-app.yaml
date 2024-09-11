@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   destination:
-    name: ce-mgmt
+    name: cc-mngd-1
     namespace: calico-cloud 
   source:
     path: charts/client-credentials/dev-team-1-creds

@@ -15,7 +15,7 @@ spec:
       valueFiles:
       - values.yaml
   destination:
-    name: ce-mgmt
+    name: cc-mngd-1
     namespace: calico-cloud
   syncPolicy:
     automated:
