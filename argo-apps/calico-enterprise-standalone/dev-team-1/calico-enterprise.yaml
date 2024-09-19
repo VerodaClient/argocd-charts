@@ -15,7 +15,7 @@ spec:
     helm:
       valueFiles:
       - values.standalone.yaml
-  project: default
+  project: dev-team-1
   syncPolicy:
     automated:
       selfHeal: true

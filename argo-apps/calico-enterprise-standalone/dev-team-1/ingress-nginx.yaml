@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
-  project: default
+  project: dev-team-1
   source:
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     path: charts/ingress-nginx
