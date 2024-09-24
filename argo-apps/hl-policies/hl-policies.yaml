@@ -5,7 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "20"
 spec:
-  project: default
+  project: dev-team-1
   destination:
     name: ce-mgmt
     namespace: default
