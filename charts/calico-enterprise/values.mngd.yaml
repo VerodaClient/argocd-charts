@@ -38,6 +38,16 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
+    csiNodeDriverDaemonSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-csi
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
 
   apiServer:
     enabled: true
