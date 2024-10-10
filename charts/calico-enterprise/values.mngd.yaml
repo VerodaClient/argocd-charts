@@ -72,13 +72,13 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
-  IntrusionDetection:
+  intrusionDetection:
     intrusionDetectionControllerDeployment:
       spec:
         template:
           spec:
             containers:
-            - name: controller
+            - name: testing
               resources:
                 requests:
                   cpu: 10m
