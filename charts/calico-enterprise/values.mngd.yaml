@@ -61,7 +61,17 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
-
+  compliance:
+    complianceBenchmarkerDaemonSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: compliance-benchmarker
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
 
 
   tigera-prometheus-operator:
