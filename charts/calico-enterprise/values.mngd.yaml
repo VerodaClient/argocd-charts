@@ -8,6 +8,51 @@ tigera-operator:
     imagePullSecrets:
       - name: tigera-pull-secret
     kubeletVolumePluginPath: "None"
+    typhaDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-typha
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+    calicoNodeDaemonSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-node
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+    calicoKubeControllersDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-kube-controllers
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+
+  apiServer:
+    enabled: true
+    apiServerDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-apiserver
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+
+
 
   tigera-prometheus-operator:
     enabled: false
