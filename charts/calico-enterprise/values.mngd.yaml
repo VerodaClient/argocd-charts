@@ -41,12 +41,12 @@ tigera-operator:
           spec:
             containers:
             - name: tigera-guardian
-               resources:
-                 requests:
-                   cpu: 1000m
-                   memory: 1500Mi
-                 limits:
-                   memory: 1500Mi
+              resources:
+                requests:
+                  cpu: 1000m
+                  memory: 1500Mi
+                limits:
+                  memory: 1500Mi
     managementClusterAddress: leonargomcm.training.tigera.ca:9449
     management:
       tls:
