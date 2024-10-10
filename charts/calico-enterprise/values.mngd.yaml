@@ -78,7 +78,7 @@ tigera-operator:
         template:
           spec:
             containers:
-            - name: testing
+            - name: controller
               resources:
                 requests:
                   cpu: 10m
