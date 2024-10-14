@@ -42,6 +42,36 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
+    kibana:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: kibana
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+    linseedDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: tigera-linseed
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+    elasticsearchMetricsDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: tigera-elasticsearch-metrics
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
   compliance:
     complianceServerDeployment:
       spec:
