@@ -31,7 +31,18 @@ tigera-operator:
         labels:
           release: prometheus-stack
 
-
+  logStorage:
+    eckOperatorStatefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: calico-typha
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+                  
   tigera-prometheus-operator:
     enabled: false
 
