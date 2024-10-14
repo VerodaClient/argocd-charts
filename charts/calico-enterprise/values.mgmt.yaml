@@ -83,6 +83,27 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
+  manager:
+    managerDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: tigera-es-proxy
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+            - name: tigera-voltron
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+            - name: tigera-manager
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
 
 
   tigera-prometheus-operator:
