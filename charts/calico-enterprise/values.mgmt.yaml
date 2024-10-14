@@ -37,12 +37,12 @@ tigera-operator:
         template:
           spec:
             containers:
-            - name: calico-typha
+            - name: manager
               resources:
                 requests:
                   cpu: 10m
                   memory: 7Mi
-                  
+
   tigera-prometheus-operator:
     enabled: false
 
