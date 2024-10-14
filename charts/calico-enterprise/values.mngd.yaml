@@ -72,6 +72,26 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
+    complianceControllerDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: compliance-controller
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
+    complianceSnapshotterDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: compliance-snapshotter
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
   intrusionDetection:
     intrusionDetectionControllerDeployment:
       spec:
