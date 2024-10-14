@@ -104,7 +104,17 @@ tigera-operator:
                 requests:
                   cpu: 10m
                   memory: 7Mi
-
+  policyRecommendation:
+    policyRecommendationDeployment:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: policy-recommendation-controller
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
 
   tigera-prometheus-operator:
     enabled: false
