@@ -104,7 +104,17 @@ tigera-operator:
                   cpu: 10m
                   memory: 7Mi
       
-
+  logCollector:
+    fluentdDaemonSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: fluentd
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 7Mi
   tigera-prometheus-operator:
     enabled: false
 
