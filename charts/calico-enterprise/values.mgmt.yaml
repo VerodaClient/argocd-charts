@@ -43,7 +43,7 @@ tigera-operator:
                   cpu: 10m
                   memory: 7Mi
   compliance:
-    complianceBenchmarkerDaemonSet:
+    complianceServerDeployment:
       spec:
         template:
           spec:
