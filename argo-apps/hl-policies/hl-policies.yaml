@@ -27,6 +27,7 @@ spec:
         maxDuration: 3m
     syncOptions:
       - CreateNamespace=true
+      - allowEmpty=true
       - ApplyOutOfSyncOnly=true
       - PrunePropagationPolicy=foreground
       - PruneLast=true
