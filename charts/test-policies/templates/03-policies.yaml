@@ -24,9 +24,6 @@ metadata:
 spec:
   tier: platform
   order: 10000
-  selector: ''
-  namespaceSelector: ''
-  serviceAccountSelector: ''
   ingress:
     - action: Pass
       source: {}
@@ -35,9 +32,6 @@ spec:
     - action: Pass
       source: {}
       destination: {}
-  doNotTrack: false
-  applyOnForward: false
-  preDNAT: false
   types:
     - Ingress
     - Egress
@@ -49,9 +43,6 @@ metadata:
 spec:
   tier: platform
   order: 1
-  selector: ''
-  namespaceSelector: ''
-  serviceAccountSelector: ''
   ingress:
     - action: Allow
       protocol: TCP
@@ -86,9 +77,6 @@ spec:
         selector: k8s-app == "kube-dns"
         ports:
           - '53'
-  doNotTrack: false
-  applyOnForward: false
-  preDNAT: false
   types:
     - Ingress
     - Egress
@@ -101,11 +89,6 @@ spec:
   order: -900
   tier: security
   selector: quarantine == "true"
-  namespaceSelector: ''
-  serviceAccountSelector: ''
-  doNotTrack: false
-  applyOnForward: false
-  preDNAT: false
   types:
     - Ingress
     - Egress
