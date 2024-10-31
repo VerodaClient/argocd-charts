@@ -5,9 +5,6 @@ metadata:
 spec:
   tier: security
   order: 10000
-  selector: ''
-  namespaceSelector: ''
-  serviceAccountSelector: ''
   ingress:
     - action: Pass
       source: {}
@@ -16,9 +13,6 @@ spec:
     - action: Pass
       source: {}
       destination: {}
-  doNotTrack: false
-  applyOnForward: false
-  preDNAT: false
   types:
     - Ingress
     - Egress
