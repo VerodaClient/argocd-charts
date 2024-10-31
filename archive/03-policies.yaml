@@ -93,7 +93,7 @@ spec:
     - Ingress
     - Egress
 ---
-apiVersion: projectcalico.org/v3
+apiVersion: crd.projectcalico.org/v1
 kind: NetworkPolicy
 metadata:
   name: app.namespace-1-allow
@@ -115,7 +115,7 @@ spec:
     - Ingress
     - Egress
 ---
-apiVersion: projectcalico.org/v3
+apiVersion: crd.projectcalico.org/v1
 kind: NetworkPolicy
 metadata:
   name: namespace-2-allow
