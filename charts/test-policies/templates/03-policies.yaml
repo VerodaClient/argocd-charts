@@ -59,7 +59,7 @@ spec:
       destination:
         selector: k8s-app == "kube-dns"
         ports:
-          - '53'
+          - 53
   egress:
     - action: Allow
       protocol: TCP
@@ -68,7 +68,7 @@ spec:
       destination:
         selector: k8s-app == "kube-dns"
         ports:
-          - '53'
+          - 53
     - action: Allow
       protocol: UDP
       source:
@@ -76,7 +76,7 @@ spec:
       destination:
         selector: k8s-app == "kube-dns"
         ports:
-          - '53'
+          - 53
   types:
     - Ingress
     - Egress
