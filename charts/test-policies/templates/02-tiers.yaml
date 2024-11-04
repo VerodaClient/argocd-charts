@@ -19,4 +19,11 @@ metadata:
 spec:
   order: 300
 ---
+apiVersion: projectcalico.org/v3
+kind: Tier
+metadata:
+  name: infra
+spec:
+  order: 300
+---
 

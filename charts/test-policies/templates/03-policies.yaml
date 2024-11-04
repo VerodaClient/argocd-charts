@@ -67,3 +67,107 @@ spec:
           - 443
   types:
     - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: argo-events
+    projectcalico.org/tier: infra
+  name: infra.argo-events
+  namespace: argo-events
+spec:
+  egress:
+  - action: Allow
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "default"
+      ports:
+      - 443
+      selector: component == "apiserver"
+    protocol: TCP
+    source: {}
+  order: 10
+  tier: infra
+  types:
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/component: argo-workflows
+    app.kubernetes.io/instance: argo-workflows
+    app.kubernetes.io/name: argo-workflows
+    app.kubernetes.io/part-of: argo-workflows
+  name: infra.argo-workflows
+  namespace: argo
+spec:
+  egress:
+  - action: Allow
+    destination:
+      namespaceSelector: kubernetes.io/metadata.name == "default"
+      ports:
+      - 443
+      selector: component == "apiserver"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 80
+      selector: target == "aws-imds"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 443
+      selector: target == "aws-ec2"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 443
+      selector: target == "aws-sts"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 443
+      selector: target == "aws-kms"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      domains:
+      - argo-workflows.internal.devmgmt.fps.hlag.com
+      ports:
+      - 443
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 443
+      selector: target == "hlag-gitlab"
+    protocol: TCP
+    source: {}
+  - action: Allow
+    destination:
+      namespaceSelector: global()
+      ports:
+      - 443
+      selector: target == "microsoft-azure-ad"
+    protocol: TCP
+    source: {}
+  order: 10
+  tier: infra
+  types:
+  - Egress
