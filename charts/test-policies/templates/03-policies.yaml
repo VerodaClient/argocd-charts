@@ -171,3 +171,17 @@ spec:
   tier: infra
   types:
   - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: security.allow-all
+  namespace: default
+spec:
+  tier: security
+  egress:
+    - action: Allow
+      source: {}
+      destination: {}
+  types:
+    - Egress
