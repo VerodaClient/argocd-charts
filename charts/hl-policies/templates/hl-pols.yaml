@@ -519,7 +519,7 @@ items:
       protocol: TCP
       source: {}
     order: 10
-    selector: ""
+    selector: ''
     tier: infra
     types:
     - Egress
