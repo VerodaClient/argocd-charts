@@ -500,7 +500,7 @@ items:
 apiVersion: v1
 kind: List
 items:
-- apiVersion: crd.projectcalico.org/v1
+- apiVersion: projectcalico.org/v3
   kind: NetworkPolicy
   metadata:
     labels:
@@ -514,7 +514,7 @@ items:
       destination:
         namespaceSelector: kubernetes.io/metadata.name == "default"
         ports:
-        - "443"
+        - 443
         selector: component == "apiserver"
       protocol: TCP
       source: {}
