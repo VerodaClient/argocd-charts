@@ -500,7 +500,7 @@ items:
 apiVersion: v1
 kind: List
 items:
-- apiVersion: projectcalico.org/v3
+- apiVersion: crd.projectcalico.org/v1
   kind: NetworkPolicy
   metadata:
     labels:
