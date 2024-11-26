@@ -17,8 +17,8 @@ spec:
 #    argocd.argoproj.io/sync-wave: "-10"
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: false
+      selfHeal: false
     retry:
       limit: 35
       backoff:
