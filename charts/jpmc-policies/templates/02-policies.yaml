@@ -168,7 +168,7 @@ spec:
     protocol: TCP
     source: {}
   order: 10
-  tier: infra
+  tier: default
   types:
   - Egress
 ---
