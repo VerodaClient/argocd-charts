@@ -33,6 +33,6 @@ tigera-operator:
           release: prometheus-stack
 
 
-  tigera-prometheus-operator:
-    enabled: false
+#  tigera-prometheus-operator:
+#    enabled: false
 
