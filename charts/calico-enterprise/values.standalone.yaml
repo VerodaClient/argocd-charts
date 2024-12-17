@@ -36,3 +36,5 @@ tigera-operator:
 #  tigera-prometheus-operator:
 #    enabled: false
 
+  apiServer:
+    enabled: true
