@@ -26,15 +26,15 @@ tigera-operator:
 
   monitor:
     enabled: true
-#    externalPrometheus:
-#      namespace: monitoring
-#      serviceMonitor:
-#        labels:
-#          release: prometheus-stack
+    externalPrometheus:
+      namespace: monitoring
+      serviceMonitor:
+        labels:
+          release: prometheus-stack
 
 
-#  tigera-prometheus-operator:
-#    enabled: false
+  tigera-prometheus-operator:
+    enabled: false
 
   apiServer:
     enabled: true
