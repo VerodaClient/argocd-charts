@@ -1,0 +1,22 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-01
+    app.upwork.com/runtime: eks
+    argocd.argoproj.io/instance: calico-ee-global-netpol-headroom-ext-prod-canary-01
+    helm.sh/chart: global-network-policies-0.0.20
+  name: default.allow-from-prometheus-ee
+  namespace: calico-system
+spec:
+  egress:
+    - action: Allow
+      destination:
+        selector: all()
+      source:
+        selector: app.kubernetes.io/name == 'prometheus'
+  order: 5
+  selector: app.kubernetes.io/name == 'prometheus'
+  types:
+    - Egress
