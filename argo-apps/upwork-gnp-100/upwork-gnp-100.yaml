@@ -8,7 +8,7 @@ spec:
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
     helm:
-      values:
+      values: |
         globalDefaultDenyNetworkPolicies:
           enabled: true
         namespaceNetworkPolicies:
