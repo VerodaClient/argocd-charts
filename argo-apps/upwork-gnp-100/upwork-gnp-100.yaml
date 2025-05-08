@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: upwork-gnp-100
+spec:
+  project: argocd-services-argocd
+  source:
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+    helm:
+      values:
+        globalDefaultDenyNetworkPolicies:
+          enabled: true
+        namespaceNetworkPolicies:
+          enabled: true
+          deny:
+            - calico-system
+            - kube-system
+        hostNetworkPolicies:
+          enabled: true
+        podNetworkPolicies:
+          enabled: true
+        kubectlExecAccess:
+          enabled: true
+        failSafeNetworkPolicies:
+          enabled: false
+        portsEgress:
+          tcp:
+            - 443   # pull docker images images
+          udp:
+            - 123 # NTP
+        portsNodeIngress:
+          tcp:
+            - 50051 # aws-node to aws-node
+          udp:
+            - 123 # NTP
+        portsIngress:
+          tcp:
+            - 10250 # kubelet
+          udp:
+            - 53  # DNS
+        calicoEnterprise:
+          enabled: true
+    chart: charts/global-network-policies
+  destination:
+    server: 'https://27DFCA5CF2FFFA1652A5930B01E2C54B.sk1.ca-central-1.eks.amazonaws.com'
+    namespace: calico-system
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
