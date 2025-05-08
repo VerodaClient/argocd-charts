@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: upwork-gnp-100
 spec:
-  project: argocd-services-argocd
+  project: default
   source:
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
