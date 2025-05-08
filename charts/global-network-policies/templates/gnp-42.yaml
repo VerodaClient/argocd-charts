@@ -1,0 +1,19 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-42
+    app.upwork.com/runtime: eks
+  name: allow-from-metrics-server-42
+spec:
+  egress:
+    - action: Allow
+      destination:
+        selector: all()
+      source:
+        selector: app.kubernetes.io/name == 'metrics-server'
+  order: 5
+  selector: app.kubernetes.io/name == 'metrics-server'
+  types:
+    - Egress

@@ -1,0 +1,19 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-58
+    app.upwork.com/runtime: eks
+  name: allow-from-cilium-58
+spec:
+  egress:
+    - action: Allow
+      destination:
+        selector: all()
+      source:
+        selector: app.kubernetes.io/name == 'cilium'
+  order: 5
+  selector: app.kubernetes.io/name == 'cilium'
+  types:
+    - Egress
