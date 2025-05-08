@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-29
     app.upwork.com/runtime: eks
-  name: allow-from-kube-proxy-29
+  name: default.allow-from-fluentd-29
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'kube-proxy'
+        selector: app.kubernetes.io/name == 'fluentd'
   order: 5
-  selector: app.kubernetes.io/name == 'kube-proxy'
+  selector: app.kubernetes.io/name == 'fluentd'
   types:
     - Egress

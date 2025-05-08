@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-77
     app.upwork.com/runtime: eks
-  name: allow-from-cilium-77
+  name: default.allow-from-fluentd-77
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'cilium'
+        selector: app.kubernetes.io/name == 'fluentd'
   order: 5
-  selector: app.kubernetes.io/name == 'cilium'
+  selector: app.kubernetes.io/name == 'fluentd'
   types:
     - Egress

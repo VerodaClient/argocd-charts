@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-57
     app.upwork.com/runtime: eks
-  name: allow-from-fluentd-57
+  name: default.allow-from-vault-57
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'fluentd'
+        selector: app.kubernetes.io/name == 'vault'
   order: 5
-  selector: app.kubernetes.io/name == 'fluentd'
+  selector: app.kubernetes.io/name == 'vault'
   types:
     - Egress

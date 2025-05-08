@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-66
     app.upwork.com/runtime: eks
-  name: allow-from-istio-66
+  name: default.allow-from-envoy-66
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'istio'
+        selector: app.kubernetes.io/name == 'envoy'
   order: 5
-  selector: app.kubernetes.io/name == 'istio'
+  selector: app.kubernetes.io/name == 'envoy'
   types:
     - Egress

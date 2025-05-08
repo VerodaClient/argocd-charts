@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-93
     app.upwork.com/runtime: eks
-  name: allow-from-vault-93
+  name: default.allow-from-cilium-93
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'vault'
+        selector: app.kubernetes.io/name == 'cilium'
   order: 5
-  selector: app.kubernetes.io/name == 'vault'
+  selector: app.kubernetes.io/name == 'cilium'
   types:
     - Egress

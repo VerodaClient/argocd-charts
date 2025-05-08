@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-23
     app.upwork.com/runtime: eks
-  name: allow-from-fluentd-23
+  name: default.allow-from-traefik-23
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'fluentd'
+        selector: app.kubernetes.io/name == 'traefik'
   order: 5
-  selector: app.kubernetes.io/name == 'fluentd'
+  selector: app.kubernetes.io/name == 'traefik'
   types:
     - Egress

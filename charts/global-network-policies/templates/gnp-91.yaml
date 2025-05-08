@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-91
     app.upwork.com/runtime: eks
-  name: allow-from-envoy-91
+  name: default.allow-from-envoy-91
 spec:
   egress:
     - action: Allow

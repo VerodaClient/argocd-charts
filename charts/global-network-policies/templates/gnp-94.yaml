@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-94
     app.upwork.com/runtime: eks
-  name: allow-from-linkerd-94
+  name: default.allow-from-aqua-94
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'linkerd'
+        selector: app.kubernetes.io/name == 'aqua'
   order: 5
-  selector: app.kubernetes.io/name == 'linkerd'
+  selector: app.kubernetes.io/name == 'aqua'
   types:
     - Egress

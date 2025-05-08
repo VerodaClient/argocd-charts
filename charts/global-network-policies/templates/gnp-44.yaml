@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-44
     app.upwork.com/runtime: eks
-  name: allow-from-envoy-44
+  name: default.allow-from-metrics-server-44
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'envoy'
+        selector: app.kubernetes.io/name == 'metrics-server'
   order: 5
-  selector: app.kubernetes.io/name == 'envoy'
+  selector: app.kubernetes.io/name == 'metrics-server'
   types:
     - Egress

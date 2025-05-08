@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-47
     app.upwork.com/runtime: eks
-  name: allow-from-prometheus-47
+  name: default.allow-from-aqua-47
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'prometheus'
+        selector: app.kubernetes.io/name == 'aqua'
   order: 5
-  selector: app.kubernetes.io/name == 'prometheus'
+  selector: app.kubernetes.io/name == 'aqua'
   types:
     - Egress

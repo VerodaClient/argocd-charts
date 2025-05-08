@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-38
     app.upwork.com/runtime: eks
-  name: allow-from-fluentd-38
+  name: default.allow-from-metrics-server-38
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'fluentd'
+        selector: app.kubernetes.io/name == 'metrics-server'
   order: 5
-  selector: app.kubernetes.io/name == 'fluentd'
+  selector: app.kubernetes.io/name == 'metrics-server'
   types:
     - Egress

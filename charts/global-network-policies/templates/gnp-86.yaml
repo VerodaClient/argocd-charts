@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-86
     app.upwork.com/runtime: eks
-  name: allow-from-traefik-86
+  name: default.allow-from-etcd-86
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'traefik'
+        selector: app.kubernetes.io/name == 'etcd'
   order: 5
-  selector: app.kubernetes.io/name == 'traefik'
+  selector: app.kubernetes.io/name == 'etcd'
   types:
     - Egress

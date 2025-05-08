@@ -5,15 +5,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: calico-ee-global-netpol-headroom-ext-prod-canary-09
     app.upwork.com/runtime: eks
-  name: allow-from-metrics-server-09
+  name: default.allow-from-istio-09
 spec:
   egress:
     - action: Allow
       destination:
         selector: all()
       source:
-        selector: app.kubernetes.io/name == 'metrics-server'
+        selector: app.kubernetes.io/name == 'istio'
   order: 5
-  selector: app.kubernetes.io/name == 'metrics-server'
+  selector: app.kubernetes.io/name == 'istio'
   types:
     - Egress
