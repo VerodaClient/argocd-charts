@@ -14,7 +14,7 @@ tigera-operator:
       ipPools:
       - blockSize: 26
         cidr: 10.48.0.0/16
-        encapsulation: None
+        encapsulation: VXLAN
         natOutgoing: Enabled
         nodeSelector: all()
     cni:
