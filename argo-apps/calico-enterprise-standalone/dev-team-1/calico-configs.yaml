@@ -17,6 +17,7 @@ spec:
         - values.standalone.yaml
   destination:
     name: ce-mgmt
+    namespace: default
   syncPolicy:
     automated:
       selfHeal: true
