@@ -229,7 +229,7 @@ additionalVolumes: []
 ##
 additionalVolumeMounts: []
 ## @param hostNetwork Sealed Secrets pods' hostNetwork
-hostNetwork: false
+hostNetwork: true
 ## @param dnsPolicy Sealed Secrets pods' dnsPolicy
 dnsPolicy: ""
 
