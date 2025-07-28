@@ -6,21 +6,21 @@ tigera-operator:
   installation:
     enabled: true
     variant: TigeraSecureEnterprise
-#    kubernetesProvider: "AKS"
+    kubernetesProvider: "AKS"
     imagePullSecrets:
       - name: tigera-pull-secret
-#    calicoNetwork:
+    calicoNetwork:
     # Note: The ipPools section cannot be modified post-install.
-#      ipPools:
-#      - blockSize: 26
-#        cidr: 10.48.0.0/16
-#        encapsulation: VXLAN
-#        natOutgoing: Enabled
-#        nodeSelector: all()
-#    cni:
-#      ipam:
-#        type: Calico
-#      type: Calico
+      ipPools:
+      - blockSize: 26
+        cidr: 10.48.0.0/16
+        encapsulation: VXLAN
+        natOutgoing: Enabled
+        nodeSelector: all()
+    cni:
+      ipam:
+        type: Calico
+      type: Calico
   
 #  defaultFelixConfiguration:
 #    enabled: true
