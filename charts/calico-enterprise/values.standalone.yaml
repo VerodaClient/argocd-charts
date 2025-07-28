@@ -6,7 +6,7 @@ tigera-operator:
   installation:
     enabled: true
     variant: TigeraSecureEnterprise
-#    kubernetesProvider: "EKS"
+    kubernetesProvider: "AKS"
     imagePullSecrets:
       - name: tigera-pull-secret
   
