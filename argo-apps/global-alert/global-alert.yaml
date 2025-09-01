@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hl-policies-mgmt
+  name: global-alerts
   annotations:
     argocd.argoproj.io/sync-wave: "20"
 spec:

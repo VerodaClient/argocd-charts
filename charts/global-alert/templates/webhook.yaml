@@ -5,7 +5,7 @@ metadata:
 spec:
   config:
     - name: url
-      value: "http://calico-node-alertmanager.tigera-prometheus.svc.cluster.local:9093/api/v2/alerts"
+      value: "http://prometheus-stack-kube-prom-alertmanager.monitoring.svc.cluster.local:9093/api/v2/alerts"
     - name: template
       value: |
         {{ .Files.Get "files/alert_template.json" | nindent 8 }}
