@@ -1,0 +1,22 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalAlert
+metadata:
+ name: denied-traffic-alert
+spec:
+ aggregateBy:
+ - reporter
+ - source_name_aggr
+ - source_namespace
+ - dest_namespace
+ - dest_name_aggr
+ - dest_port
+ - proto
+ - num_flows
+ condition: gte
+ dataSet: flows
+ description: denied-traffic-alert
+ lookback: 1m0s
+ period: 1m0s
+ query: '"action" = "deny" AND num_flows > 1'
+ severity: 100
+ summary: denied-traffic-alert

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: calico-securityeventwebhook
+description: Install a Calico SecurityEventWebhook (uses files/ to pass raw template)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,14 @@
+apiVersion: projectcalico.org/v3
+kind: SecurityEventWebhook
+metadata:
+  name: alertmanager-webhook
+spec:
+  config:
+    - name: url
+      value: "http://calico-node-alertmanager.tigera-prometheus.svc.cluster.local:9093/api/v2/alerts"
+    - name: template
+      value: |
+        {{ .Files.Get "files/alert_template.json" | nindent 8 }}
+  consumer: Generic
+  query: type IN {'global_alert'}
+  state: Enabled

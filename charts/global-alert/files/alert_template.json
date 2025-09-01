@@ -1,0 +1,24 @@
+[{
+  "labels": {
+    "alertname": "Calico Generic Alert",
+    "Full_Record": "{{.record}}",
+    "dest_name_aggr": "{{.record.dest_name_aggr}}",
+    "dest_port": "{{.record.dest_port}}",
+    "num_flows": "{{.record.num_flows}}",
+    "reporter": "{{.record.reporter}}",
+    "source_name_aggr": "{{.record.source_name_aggr}}",
+    "source_namespace": "{{.record.source_namespace}}",
+    "Severity": "{{.severity}}"
+  },
+  "annotations": {
+    "alertname": "Calico Generic Alert",
+    "Full_Record": "{{.record}}",
+    "dest_name_aggr": "{{.record.dest_name_aggr}}",
+    "dest_port": "{{.record.dest_port}}",
+    "num_flows": "{{.record.num_flows}}",
+    "reporter": "{{.record.reporter}}",
+    "source_name_aggr": "{{.record.source_name_aggr}}",
+    "source_namespace": "{{.record.source_namespace}}",
+    "Severity": "{{.severity}}"
+  }
+}]
