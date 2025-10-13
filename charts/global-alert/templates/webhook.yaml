@@ -5,8 +5,7 @@ metadata:
 spec:
   config:
     - name: url
-      #value: "http://prometheus-stack-kube-prom-alertmanager.monitoring.svc.cluster.local:9093/api/v2/alerts"
-      value: "http://ab7a796e22fe6499e960f48a5e9b6832-305939607.ca-central-1.elb.amazonaws.com:9093/api/v2/alerts"
+      value: "http://prometheus-stack-kube-prom-alertmanager.monitoring.svc.cluster.local:9093/api/v2/alerts"
     - name: template
       value: |
         {{ .Files.Get "files/alert_template.json" | nindent 8 }}
