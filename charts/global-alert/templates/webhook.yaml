@@ -9,6 +9,6 @@ spec:
     - name: template
       value: |
         {{ .Files.Get "files/alert_template.json" | nindent 8 }}
-  consumer: Alertmanager
+  consumer: Generic
   query: type IN {'global_alert'}
   state: Enabled
