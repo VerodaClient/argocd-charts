@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calico-oss
+spec:
+  destination:
+    name: ce-mngd
+    namespace: tigera-operator
+  source:
+    path: charts/calico-oss
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  project: dev-team-1
+  syncPolicy:
+    automated:
+      selfHeal: true
+    retry:
+      limit: 35
+      backoff:
+        duration: 30s
+        factor: 1
+        maxDuration: 3m
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+
