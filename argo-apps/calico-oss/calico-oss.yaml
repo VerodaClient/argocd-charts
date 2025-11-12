@@ -4,7 +4,7 @@ metadata:
   name: calico-oss
 spec:
   destination:
-    name: ce-mngd
+    name: ce-mgmt
     namespace: tigera-operator
   source:
     path: charts/calico-oss
