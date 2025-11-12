@@ -22,3 +22,9 @@ installation:
       memory: 300Mi
     limits:
       memory: 300Mi
+goldmane:
+  enabled: false
+
+whisker:
+  enabled: false
+
