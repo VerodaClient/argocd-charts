@@ -23,9 +23,6 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
 dependencies:
-#  - name: sealed-secrets 
-#    version: 2.15.3 
-#    repository: https://bitnami-labs.github.io/sealed-secrets
   - name: tigera-operator
     version: 3.25.2
     repository: https://docs.tigera.io/calico/charts
