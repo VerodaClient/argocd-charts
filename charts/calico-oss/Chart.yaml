@@ -27,5 +27,5 @@ dependencies:
 #    version: 2.15.3 
 #    repository: https://bitnami-labs.github.io/sealed-secrets
   - name: tigera-operator
-    version: 3.31.0
+    version: 3.25.2
     repository: https://docs.tigera.io/calico/charts

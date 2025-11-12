@@ -17,9 +17,9 @@ tigera-operator:
   installation:
     kubernetesProvider: "EKS"
     kubeletVolumePluginPath: "None"
-  goldmane:
-    enabled: false
+#  goldmane:
+#    enabled: false
 
-  whisker:
-    enabled: false
+#  whisker:
+#    enabled: false
 
