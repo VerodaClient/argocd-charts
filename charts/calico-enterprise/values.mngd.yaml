@@ -19,8 +19,14 @@ tigera-operator:
                   cpu: 10m
                   memory: 7Mi
     calicoNodeDaemonSet:
+      metadata:
+        labels:
+          my-label-cn: my-value-cn
       spec:
         template:
+          metadata:
+            labels:
+              my-label-cn-inside: my-value-cn-inside
           spec:
             containers:
             - name: calico-node
@@ -52,8 +58,14 @@ tigera-operator:
   apiServer:
     enabled: true
     apiServerDeployment:
+      metadata:
+        labels:
+          my-label: my-value
       spec:
         template:
+          metadata:
+            labels:
+              my-label-inside: my-value-inside
           spec:
             containers:
             - name: calico-apiserver
