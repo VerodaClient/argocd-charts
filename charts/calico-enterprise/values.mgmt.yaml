@@ -127,8 +127,7 @@ tigera-operator:
       annotations:
       - key: service.beta.kubernetes.io/aws-load-balancer-scheme
         value: "internet-facing"
-      type: LoadBalancer
-      externalTrafficPolicy: Cluster
+      type: ClusterIP
       port: 9449
       targetPort: 9449
       protocol: TCP

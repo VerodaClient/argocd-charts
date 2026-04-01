@@ -32,6 +32,12 @@ spec:
       - ServerSideApply=true
       - RespectIgnoreDifferences=true
   ignoreDifferences:
+    - group: ""
+      kind: Service
+      name: tigera-manager-mcm
+      namespace: tigera-manager
+      jsonPointers:
+        - /spec/externalTrafficPolicy
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
       name: beats.beat.k8s.elastic.co
