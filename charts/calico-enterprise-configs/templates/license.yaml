@@ -1,6 +1,5 @@
 {{ if or (and .Values.mgmtclustercert (eq .Values.mgmtclustercert.enabled true)) (and .Values.standalonecluster (eq .Values.standalonecluster.enabled true))}}
 
----
 apiVersion: projectcalico.org/v3
 kind: LicenseKey
 metadata:
