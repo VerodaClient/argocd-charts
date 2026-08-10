@@ -1,0 +1,15 @@
+{{- range $i := until (int .Values.namespaceCount) }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ printf "%s-%02d" $.Values.namespacePrefix (add1 $i) }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: upwork-policy-scale
+    {{- range $k, $v := $.Values.extraLabels }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+{{- end }}

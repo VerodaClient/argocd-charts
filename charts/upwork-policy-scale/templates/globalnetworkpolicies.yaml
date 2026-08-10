@@ -1,0 +1,33 @@
+{{- $tier := .Values.tier }}
+{{- $components := .Values.components }}
+{{- $compCount := len $components }}
+{{- range $i := until (int .Values.globalNetworkPolicyCount) }}
+{{- $n := printf "%03d" (add1 $i) }}
+{{- $component := index $components (mod $i $compCount) }}
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: {{ printf "%s.allow-from-%s-%s" $tier $component $n }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: {{ printf "calico-ee-global-netpol-headroom-%s" $n }}
+    app.kubernetes.io/part-of: upwork-policy-scale
+    {{- range $k, $v := $.Values.extraLabels }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+spec:
+  # spec.tier deliberately omitted, see networkpolicies.yaml for why.
+  order: {{ $.Values.order }}
+  selector: app.kubernetes.io/name == '{{ $component }}-{{ $n }}'
+  types:
+    - Egress
+  egress:
+    - action: Allow
+      source:
+        selector: app.kubernetes.io/name == '{{ $component }}-{{ $n }}'
+      destination:
+        selector: all()
+{{- end }}

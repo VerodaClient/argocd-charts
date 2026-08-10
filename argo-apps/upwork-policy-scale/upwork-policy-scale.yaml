@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: upwork-policy-scale
+  namespace: argocd
+spec:
+  project: dev-team-1
+  source:
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+    # path, not chart. "chart:" only works when repoURL is a Helm repository.
+    path: charts/upwork-policy-scale
+    helm:
+      valuesObject:
+        namespaceCount: 20
+        networkPolicyCount: 200
+        globalNetworkPolicyCount: 100
+        tier: default
+  destination:
+    # Cluster name as registered by set-things-up.sh. Swap to ce-mgmt to put
+    # the policy load on the management cluster instead.
+    name: ce-mngd
+    namespace: default
+  # Deliberately manual sync. The native v3 CRD migration docs require GitOps
+  # sync to be paused before migrating, and leaving selfHeal on would have
+  # Argo re-applying policies mid-switchover. Sync it by hand:
+  #   argocd app sync upwork-policy-scale
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+    retry:
+      limit: 10
+      backoff:
+        duration: 15s
+        factor: 2
+        maxDuration: 3m

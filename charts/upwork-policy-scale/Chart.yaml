@@ -1,0 +1,9 @@
+apiVersion: v2
+name: upwork-policy-scale
+description: >-
+  Generates dummy namespaces plus a configurable number of Calico Enterprise
+  NetworkPolicies and GlobalNetworkPolicies in the default tier. Used to mirror
+  Upwork's policy scale on a lab cluster ahead of the native v3 CRD migration.
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

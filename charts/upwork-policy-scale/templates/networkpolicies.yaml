@@ -1,0 +1,40 @@
+{{- $nsCount := int .Values.namespaceCount }}
+{{- $tier := .Values.tier }}
+{{- range $i := until (int .Values.networkPolicyCount) }}
+{{- $n := printf "%03d" (add1 $i) }}
+{{- $ns := printf "%s-%02d" $.Values.namespacePrefix (add1 (mod $i $nsCount)) }}
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: {{ printf "%s.headroom-np-%s" $tier $n }}
+  namespace: {{ $ns }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: {{ printf "calico-ee-netpol-headroom-%s" $n }}
+    app.kubernetes.io/part-of: upwork-policy-scale
+    {{- range $k, $v := $.Values.extraLabels }}
+    {{ $k }}: {{ $v | quote }}
+    {{- end }}
+spec:
+  # spec.tier is deliberately NOT set. Upwork's manifests carry the tier only
+  # via the "<tier>.<policyname>" metadata.name prefix, and the apiserver does
+  # not default spec.tier from it. Emitting it here would make the stored
+  # object differ from theirs, which matters for the v3 CRD migration test
+  # because the migration rewrites those names.
+  order: {{ $.Values.order }}
+  selector: app == 'headroom-{{ $n }}'
+  types:
+    - Ingress
+    - Egress
+  ingress:
+    - action: Allow
+      source:
+        selector: app == 'headroom-{{ $n }}'
+  egress:
+    - action: Allow
+      destination:
+        selector: all()
+{{- end }}

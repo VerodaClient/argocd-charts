@@ -1,0 +1,40 @@
+# Dummy namespaces the namespaced policies are spread across.
+namespaceCount: 20
+namespacePrefix: upwork-app
+
+# Namespaced projectcalico.org/v3 NetworkPolicies, distributed round-robin
+# across the namespaces above.
+networkPolicyCount: 200
+
+# Cluster-scoped projectcalico.org/v3 GlobalNetworkPolicies.
+globalNetworkPolicyCount: 100
+
+# Tier everything lands in. The default tier always exists, so nothing needs
+# creating. Policy names are prefixed "<tier>." because that is what the
+# aggregated apiserver requires. The native v3 CRD migration strips this
+# prefix automatically, which is one of the things worth watching in the
+# dry run.
+tier: default
+
+# Order for every generated policy. Deliberately high (low precedence) and
+# every rule is an Allow, so these are inert headroom policies. They add
+# scale without changing the effective policy outcome of the cluster.
+order: 5000
+
+# Sprinkled through the GlobalNetworkPolicy selectors so the objects look
+# like the platform-component policies in Upwork's real chart.
+components:
+  - cilium
+  - aqua
+  - prometheus
+  - datadog
+  - fluentbit
+  - vault
+  - consul
+  - istiod
+  - argocd
+  - cert-manager
+
+# Mirrored from Upwork's chart so the objects are recognisable.
+extraLabels:
+  app.upwork.com/runtime: eks
