@@ -26,6 +26,13 @@ dependencies:
 #  - name: sealed-secrets 
 #    version: 2.15.3 
 #    repository: https://bitnami-labs.github.io/sealed-secrets
+  # Official Tigera Enterprise chart repo. Public, no auth needed. Replaces the
+  # hand-maintained index at leon-ee-charts.s3.ca-central-1.amazonaws.com, which
+  # only ever went up to v3.21.2.
+  # Versions carry the "v" prefix here, e.g. v3.21.2, v3.22.6, v3.23.1.
+  # Upgrade path for the CRD-migration test: v3.21.2 -> v3.22.6 -> v3.23.1
+  # (or v3.21.2 -> v3.23.1 direct WITH upgrade-mitigations/ci-2016-apiserver-guard.yaml
+  # pre-staged, which is the path Upwork will actually want).
   - name: tigera-operator
-    version: 3.21.2 #3.18.5-calient-0.dev-35-g75dab5e0970b-dirty #This was 3.18.1.
-    repository: https://leon-ee-charts.s3.ca-central-1.amazonaws.com 
+    version: v3.21.2
+    repository: https://downloads.tigera.io/ee/charts
