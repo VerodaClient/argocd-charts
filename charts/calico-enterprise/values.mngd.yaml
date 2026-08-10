@@ -87,6 +87,9 @@ tigera-operator:
     complianceControllerDeployment:
       spec:
         template:
+          metadata:
+            labels:
+              my-label-inside: my-value-inside
           spec:
             containers:
             - name: compliance-controller
