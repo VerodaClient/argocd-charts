@@ -43,7 +43,7 @@ spec:
           enabled: true
     chart: charts/global-network-policies
   destination:
-    server: 'https://27DFCA5CF2FFFA1652A5930B01E2C54B.sk1.ca-central-1.eks.amazonaws.com'
+    server: 'https://40B4FF60AF91508CE89E88DE3DECE44B.gr7.ca-central-1.eks.amazonaws.com'
     namespace: calico-system
   syncPolicy:
     syncOptions:
