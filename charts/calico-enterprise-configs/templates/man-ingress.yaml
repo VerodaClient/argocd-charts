@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: tigera-manager-man
-  namespace: tigera-manager
+  namespace: calico-system
   annotations:
 #    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
@@ -19,7 +19,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: tigera-manager
+            name: calico-manager
             port:
               number: 9443
 {{ end }}

@@ -40,28 +40,19 @@ spec:
     - Ingress
     - Egress
   egress:
-    # Cluster DNS.
-    - action: Allow
-      protocol: UDP
-      destination:
-        namespaceSelector: projectcalico.org/name == 'kube-system'
-        selector: k8s-app == 'kube-dns'
-        ports:
-          - 53
-    # Kubernetes API by endpoint selector.
+    # Kubernetes API. MUST use destination.services, not the ClusterIP.
+    # Calico egress policy evaluates AFTER kube-proxy's DNAT, so it sees the
+    # real API server endpoint IPs, never the 10.100.x.x ClusterIP. This is the
+    # construct the operator's own calico-system.apiserver-access uses. Note it
+    # carries no ports field, the service supplies them.
     - action: Allow
       protocol: TCP
       destination:
-        namespaceSelector: projectcalico.org/name == 'default'
-        selector: (provider == 'kubernetes' && component == 'apiserver' && endpoints.projectcalico.org/serviceName == 'kubernetes')
-        ports:
-          - 443
-          - 6443
-          - 12388
-    # Kubernetes API by service ClusterIP. This is the rule that actually
-    # matters on AWS VPC CNI, where the endpoint selector above may not
-    # resolve to a Calico workload endpoint.
-    # CHANGE THIS per cluster:
+        services:
+          name: kubernetes
+          namespace: default
+    # Belt and braces for any pre-DNAT path (e.g. host-networked callers).
+    # Harmless if it never matches. Change the IP per cluster:
     #   kubectl get svc kubernetes -n default -o jsonpath='{.spec.clusterIP}'
     - action: Allow
       protocol: TCP
@@ -71,7 +62,14 @@ spec:
         ports:
           - 443
           - 6443
-    # Anything else falls through to the next tier.
+    # Cluster DNS. Selector matches the operator's, covering both names.
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: projectcalico.org/name == 'kube-system'
+        selector: k8s-app in { 'kube-dns', 'coredns' }
+        ports:
+          - 53
     - action: Pass
   ingress:
     - action: Allow

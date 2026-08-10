@@ -1,0 +1,89 @@
+# CI-2016 RECOVERY, for a cluster that has ALREADY deadlocked.
+#
+# Use 01 + 02 to PREVENT the deadlock before upgrading. Use this file to get
+# OUT of it afterwards.
+#
+# The problem with recovery: the deadlock takes down the aggregated
+# projectcalico.org API, so you cannot apply a projectcalico.org/v3 policy to
+# fix it. The operator hits the same wall, which is why tigerastatus reports
+#     ResourceUpdateError: the server is currently unable to handle the
+#     request (post networkpolicies.projectcalico.org)
+# Recovery depends on the very API the apiserver serves.
+#
+# The way out: write to crd.projectcalico.org/v1 instead. Those are ordinary
+# CRDs served by the real Kubernetes apiserver, and Felix reads them directly
+# via libcalico rather than through the aggregated API. So this lands and takes
+# effect while the aggregated API is still down.
+#
+# WARNING: applying to crd.projectcalico.org/v1 with kubectl SKIPS Calico's
+# validation entirely. A malformed spec is accepted silently and simply does
+# not work. Do not trust "created" as success. Verify by watching the
+# calico-apiserver pods actually reach 2/2.
+#
+# Change 10.100.0.1/32 if your Kubernetes service ClusterIP differs:
+#   kubectl get svc kubernetes -n default -o jsonpath='{.spec.clusterIP}'
+---
+apiVersion: crd.projectcalico.org/v1
+kind: Tier
+metadata:
+  name: zz-apiserver-upgrade-guard
+spec:
+  order: 99
+  defaultAction: Pass
+---
+apiVersion: crd.projectcalico.org/v1
+kind: GlobalNetworkPolicy
+metadata:
+  name: zz-apiserver-upgrade-guard.apiserver-access
+spec:
+  tier: zz-apiserver-upgrade-guard
+  order: 1
+  selector: k8s-app == 'tigera-apiserver' || k8s-app == 'calico-apiserver'
+  types:
+    - Ingress
+    - Egress
+  egress:
+    # Kubernetes API. MUST use destination.services, not the ClusterIP.
+    # Calico egress policy evaluates AFTER kube-proxy's DNAT, so it sees the
+    # real API server endpoint IPs, never the 10.100.x.x ClusterIP. This is the
+    # construct the operator's own calico-system.apiserver-access uses. Note it
+    # carries no ports field, the service supplies them.
+    - action: Allow
+      protocol: TCP
+      destination:
+        services:
+          name: kubernetes
+          namespace: default
+    # Belt and braces for any pre-DNAT path (e.g. host-networked callers).
+    # Harmless if it never matches. Change the IP per cluster:
+    #   kubectl get svc kubernetes -n default -o jsonpath='{.spec.clusterIP}'
+    - action: Allow
+      protocol: TCP
+      destination:
+        nets:
+          - 10.100.0.1/32
+        ports:
+          - 443
+          - 6443
+    # Cluster DNS. Selector matches the operator's, covering both names.
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: projectcalico.org/name == 'kube-system'
+        selector: k8s-app in { 'kube-dns', 'coredns' }
+        ports:
+          - 53
+    - action: Pass
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source:
+        nets:
+          - 0.0.0.0/0
+      destination:
+        ports:
+          - 443
+          - 5443
+          - 8080
+          - 10443
+    - action: Pass
