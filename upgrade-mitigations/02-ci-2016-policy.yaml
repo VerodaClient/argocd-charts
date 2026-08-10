@@ -1,0 +1,88 @@
+# CI-2016 mitigation, STEP 2 of 2. Apply AFTER 01-ci-2016-tier.yaml has been
+# accepted, as a separate kubectl invocation. See 01 for why.
+#
+# Purpose: pre-stage an apiserver allow path BEFORE a direct CE 3.21.x ->
+# 3.23.x upgrade. The direct hop makes two operator changes in one reconcile,
+# the apiserver namespace rehoming (tigera-system -> calico-system, 3.21->3.22)
+# and the tier rename (allow-tigera -> calico-system, 3.22->3.23). That opens a
+# window where the apiserver's allow policy exists in neither tier while
+# allow-tigera's default-deny still applies. The apiserver loses egress to the
+# Kubernetes API, crashloops, and takes the aggregated projectcalico.org API
+# down with it. It does not self-heal, and recovery needs the very API the
+# apiserver serves.
+#
+# Validated by Abhishek Rao on a controlled 3-cluster repro (CI-2016):
+#   A  direct, no pre-staged policy  -> deadlock
+#   B  direct, WITH this policy      -> clean, 0 apiserver restarts
+#   C  two-hop via 3.22.6, no policy -> clean, 0 apiserver restarts
+#
+# CAVEAT: that repro was OpenShift 4.18 with WireGuard + Egress Gateway +
+# Fluentd mTLS + iptables. NOT validated on EKS + AWS VPC CNI, which is
+# Upwork's profile. Validate here before recommending it to them.
+#
+# GlobalNetworkPolicy rather than namespaced, deliberately: the apiserver
+# changes namespace mid-upgrade, so a policy pinned to tigera-system would
+# stop protecting it exactly when it matters. The selector covers both the
+# 3.21 pod label (tigera-apiserver) and the 3.23 one (calico-apiserver).
+#
+# spec.tier is set explicitly. For the default tier the name prefix alone is
+# enough, because spec.tier defaults to "default". For any other tier the
+# field and the prefix must agree.
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: zz-apiserver-upgrade-guard.apiserver-access
+spec:
+  tier: zz-apiserver-upgrade-guard
+  order: 1
+  selector: k8s-app == 'tigera-apiserver' || k8s-app == 'calico-apiserver'
+  types:
+    - Ingress
+    - Egress
+  egress:
+    # Cluster DNS.
+    - action: Allow
+      protocol: UDP
+      destination:
+        namespaceSelector: projectcalico.org/name == 'kube-system'
+        selector: k8s-app == 'kube-dns'
+        ports:
+          - 53
+    # Kubernetes API by endpoint selector.
+    - action: Allow
+      protocol: TCP
+      destination:
+        namespaceSelector: projectcalico.org/name == 'default'
+        selector: (provider == 'kubernetes' && component == 'apiserver' && endpoints.projectcalico.org/serviceName == 'kubernetes')
+        ports:
+          - 443
+          - 6443
+          - 12388
+    # Kubernetes API by service ClusterIP. This is the rule that actually
+    # matters on AWS VPC CNI, where the endpoint selector above may not
+    # resolve to a Calico workload endpoint.
+    # CHANGE THIS per cluster:
+    #   kubectl get svc kubernetes -n default -o jsonpath='{.spec.clusterIP}'
+    - action: Allow
+      protocol: TCP
+      destination:
+        nets:
+          - 10.100.0.1/32
+        ports:
+          - 443
+          - 6443
+    # Anything else falls through to the next tier.
+    - action: Pass
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source:
+        nets:
+          - 0.0.0.0/0
+      destination:
+        ports:
+          - 443
+          - 5443
+          - 8080
+          - 10443
+    - action: Pass
