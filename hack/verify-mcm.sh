@@ -108,25 +108,23 @@ case "$WANT_SECRET" in
      note "an orphaned cert means the operator self-signs and guardian gets x509 errors" ;;
 esac
 
-echo "== 5. guardian on the managed cluster =="
-G=$(kubectl --context="$MNGD" get pods -A 2>/dev/null | grep -i guardian | head -1)
-if [ -z "$G" ]; then
-  bad "no guardian pod found"
+echo "== 5. is the tunnel actually established? =="
+# Authoritative signal, not the guardian restart count. Restarts are cumulative, so
+# after a fix they stay high for the life of the pod and read as a false failure.
+CONN=$(kubectl --context="$MGMT" get managedcluster my-managed-cluster \
+  -o jsonpath='{range .status.conditions[?(@.type=="ManagedClusterConnected")]}{.status}{end}' 2>/dev/null)
+if [ "$CONN" = "True" ]; then
+  ok "ManagedClusterConnected=True"
 else
-  note "$G"
-  RS=$(printf '%s' "$G" | awk '{print $5}')
-  case "$G" in
-    *" 1/1 "*Running*)
-      if [ "${RS:-0}" -gt 2 ] 2>/dev/null; then
-        # A momentarily-passing readiness probe is not a working tunnel. Restarts are
-        # the honest signal here, guardian exits after its 60s TLS dial timeout.
-        bad "guardian is Running but has restarted ${RS}x, so the tunnel is flapping"
-      else
-        ok "guardian healthy (${RS:-0} restarts)"
-      fi ;;
-    *) bad "guardian not ready" ;;
-  esac
-  kubectl --context="$MNGD" logs -n calico-system -l k8s-app=tigera-guardian \
+  bad "ManagedClusterConnected=${CONN:-<unknown>}"
+fi
+
+# Pod detail is corroborating only. Note the label is k8s-app=guardian, NOT
+# tigera-guardian, which is the container name.
+kubectl --context="$MNGD" get pods -n calico-system -l k8s-app=guardian \
+  -o jsonpath='        pod restarts={.items[0].status.containerStatuses[0].restartCount} ready={.items[0].status.containerStatuses[0].ready} since={.items[0].status.containerStatuses[0].state.running.startedAt}{"\n"}' 2>/dev/null
+if [ "$CONN" != "True" ]; then
+  kubectl --context="$MNGD" logs -n calico-system -l k8s-app=guardian \
     --tail=60 2>/dev/null | grep -iE "x509|FATAL|tunnel closed|dial" | tail -3 \
     | sed 's/^/        /'
 fi
