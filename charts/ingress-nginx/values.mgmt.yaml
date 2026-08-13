@@ -1,3 +1,17 @@
 namespaceOverride: ingress-nginx
 tcp:
-  9449: calico-system/calico-manager-mcm:9449
+  # THE ONE PLACE THIS CANNOT BE TEMPLATED.
+  # Helm does not template values files, and the upstream chart hardcodes the name of
+  # the configmap it renders, so this line has to be edited by hand whenever the CE
+  # major changes. It must agree with charts/calico-enterprise-configs/values.mgmt.yaml
+  # -> ce.version, and with charts/calico-enterprise/Chart.yaml -> tigera-operator.
+  #
+  #   CE 3.21 / 3.22   tigera-manager/tigera-manager-mcm:9449
+  #   CE 3.23+         calico-system/calico-manager-mcm:9449
+  #
+  # Getting this wrong does NOT show up in Argo. The configmap applies cleanly and the
+  # app reports Synced/Healthy; nginx just logs "no object matching key ... in local
+  # store", accepts the TCP connection with no backend, and guardian crashloops on a
+  # 60s TLS dial timeout with no certificate error to point you at the cause.
+  # Run hack/verify-mcm.sh after any version change.
+  9449: tigera-manager/tigera-manager-mcm:9449

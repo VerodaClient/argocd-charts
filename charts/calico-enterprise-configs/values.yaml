@@ -1,0 +1,17 @@
+# Single source of truth for which Calico Enterprise release this chart is rendering
+# against. Everything version-dependent (Manager namespace / service names / app label,
+# and the Voltron tunnel secret name) is derived from this in templates/_helpers.tpl.
+#
+# KEEP THIS IN STEP WITH charts/calico-enterprise/Chart.yaml -> dependencies.tigera-operator.version
+# Helm cannot template a Chart.yaml dependency version, so these are the two places
+# that must agree. templates/preflight-manager-names.yaml fails the Argo sync loudly
+# if they drift, rather than letting the MCM tunnel die silently.
+ce:
+  version: v3.21.1
+
+mgmtclustercert:
+  enabled: false
+mngdcluster:
+  enabled: false
+standalonecluster:
+  enabled: false

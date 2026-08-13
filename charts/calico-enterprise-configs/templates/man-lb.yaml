@@ -4,11 +4,13 @@ kind: Service
 apiVersion: v1
 metadata:
   name: tigera-manager-external
-  namespace: calico-system
+  # A Service selector only matches pods in its OWN namespace, so this has to follow
+  # the Manager across the 3.23 rehome or the LB silently gets zero endpoints.
+  namespace: {{ include "ce.managerNamespace" . }}
 spec:
   type: LoadBalancer
   selector:
-    k8s-app: calico-manager
+    k8s-app: {{ include "ce.managerAppLabel" . }}
   externalTrafficPolicy: Local
   ports:
     - port: 9443
