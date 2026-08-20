@@ -7,7 +7,7 @@
 # that must agree. templates/preflight-manager-names.yaml fails the Argo sync loudly
 # if they drift, rather than letting the MCM tunnel die silently.
 ce:
-  version: v3.21.1
+  version: v3.23.1
 
 mgmtclustercert:
   enabled: false
