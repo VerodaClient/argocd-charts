@@ -1,0 +1,11 @@
+{{ if or .Values.certs.compliance.cert .Values.certs.compliance.key }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tigera-compliance-server-tls
+  namespace: {{.Release.Namespace}}
+type: Opaque
+data:
+  tls.crt: {{ required "must set compliance.cert if compliance.key is set" .Values.certs.compliance.cert | b64enc }}
+  tls.key: {{ required "must set compliance.key if compliance.cert is set" .Values.certs.compliance.key | b64enc }}
+{{ end }}

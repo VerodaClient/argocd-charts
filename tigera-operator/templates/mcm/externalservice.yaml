@@ -1,0 +1,34 @@
+{{ if .Values.managementCluster.service.enabled }}
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tigera-manager
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: tigera-manager-mcm
+  namespace: tigera-manager
+  annotations:
+  {{- range .Values.managementCluster.service.annotations }}
+    {{ .key | quote }}: {{ .value | quote }}
+  {{- end }}
+spec:
+  type: {{ .Values.managementCluster.service.type }}
+  selector:
+    k8s-app: tigera-manager
+  {{- if eq .Values.managementCluster.service.type "LoadBalancer" }}
+  externalTrafficPolicy: Local
+  {{- end }}
+  ports:
+    - port: {{ .Values.managementCluster.service.port }}
+      targetPort: {{ .Values.managementCluster.service.targetPort }}
+      protocol: {{ .Values.managementCluster.service.protocol }}
+      {{- if eq .Values.managementCluster.service.type "NodePort" }}
+      nodePort: {{ .Values.managementCluster.service.nodePort }}
+      {{- end }}
+
+{{ end }}

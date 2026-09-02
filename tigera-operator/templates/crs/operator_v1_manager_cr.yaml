@@ -1,0 +1,11 @@
+{{ if .Values.manager.enabled }}
+{{ $spec := omit .Values.manager "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: Manager
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}

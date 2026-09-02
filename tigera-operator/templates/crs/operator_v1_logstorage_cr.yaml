@@ -1,0 +1,11 @@
+{{ if .Values.logStorage.enabled }}
+{{ $spec := omit .Values.logStorage "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: LogStorage
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}

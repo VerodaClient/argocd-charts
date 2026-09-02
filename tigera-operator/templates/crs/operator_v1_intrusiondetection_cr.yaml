@@ -1,0 +1,11 @@
+{{ if .Values.intrusionDetection.enabled }}
+{{ $spec := omit .Values.intrusionDetection "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: IntrusionDetection
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}

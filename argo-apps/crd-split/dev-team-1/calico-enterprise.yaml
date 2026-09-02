@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crdsplit-calico-enterprise
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: dev-team-1
+  destination:
+    name: ce-mgmt
+    namespace: tigera-operator
+  source:
+    path: charts/calico-enterprise-split
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+    helm:
+      skipCrds: true
+      valueFiles:
+      - values.split.yaml
+  syncPolicy:
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - ServerSideApply=true

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crdsplit-ce-license
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: dev-team-1
+  destination:
+    name: ce-mgmt
+    namespace: tigera-operator
+  source:
+    path: charts/ce-license
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - ServerSideApply=true

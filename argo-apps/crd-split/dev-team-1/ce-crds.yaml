@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crdsplit-ce-crds
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-options: Delete=false
+spec:
+  project: dev-team-1
+  destination:
+    name: ce-mgmt
+    namespace: tigera-operator
+  source:
+    path: charts/ce-crds
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - ServerSideApply=true

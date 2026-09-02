@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ce-license
+description: Calico Enterprise LicenseKey, applied after calico-apiserver is up
+type: application
+version: v3.21.1
+appVersion: v3.21.1

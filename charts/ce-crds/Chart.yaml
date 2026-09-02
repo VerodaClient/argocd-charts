@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ce-crds
+description: Calico Enterprise CRDs, delivered out-of-band for GitOps
+type: application
+version: v3.21.1
+appVersion: v3.21.1

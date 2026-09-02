@@ -1,0 +1,3 @@
+{{- with .Values.licenseKeyContent }}
+{{ . | toString | replace "projectcalico.org/v3" "crd.projectcalico.org/v1" | nindent 0 }}
+{{- end }}

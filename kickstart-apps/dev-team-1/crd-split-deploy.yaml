@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crdsplit-app-of-apps
+  annotations:
+    argocd.argoproj.io/sync-wave: "-100"
+spec:
+  project: infra-apps
+  destination:
+    name: in-cluster
+    namespace: argocd
+  source:
+    path: argo-apps/crd-split/dev-team-1
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true

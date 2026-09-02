@@ -1,0 +1,11 @@
+{{ if or .Values.certs.elasticsearch.key .Values.certs.elasticsearch.cert }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tigera-secure-elasticsearch-cert
+  namespace: {{.Release.Namespace}}
+type: Opaque
+data:
+  tls.crt: {{ required "must set elasticsearch.cert if elasticsearch.key is set" .Values.certs.elasticsearch.cert | b64enc }}
+  tls.key: {{ required "must set elasticsearch.key if elasticsearch.cert is set" .Values.certs.elasticsearch.key | b64enc }}
+{{ end }}
