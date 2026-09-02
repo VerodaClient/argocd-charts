@@ -1,5 +1,0 @@
-apiVersion: v2
-appVersion: v3.21.1
-description: Calico Enterprise - Installs Prometheus operator.
-name: tigera-prometheus-operator
-version: v3.21.1
