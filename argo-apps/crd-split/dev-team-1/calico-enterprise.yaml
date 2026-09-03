@@ -18,6 +18,14 @@ spec:
       valueFiles:
       - values.split.yaml
   syncPolicy:
+    automated:
+      selfHeal: true
+    retry:
+      limit: 35
+      backoff:
+        duration: 30s
+        factor: 1
+        maxDuration: 3m
     syncOptions:
       - Validate=true
       - CreateNamespace=true

@@ -15,6 +15,14 @@ spec:
     repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
     targetRevision: HEAD
   syncPolicy:
+    automated:
+      selfHeal: true
+    retry:
+      limit: 35
+      backoff:
+        duration: 30s
+        factor: 1
+        maxDuration: 3m
     syncOptions:
       - Validate=true
       - CreateNamespace=true
