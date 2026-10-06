@@ -123,7 +123,7 @@ tigera-operator:
     enabled: true
     address: leonargomcm.training.tigera.ca:9449 
     service:
-      enabled: true
+      enabled: false   # Upwork repro: Namespace+Service now owned by upwork-repro/ns-app
       annotations:
       - key: service.beta.kubernetes.io/aws-load-balancer-scheme
         value: "internet-facing"
