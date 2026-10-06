@@ -1,0 +1,18 @@
+# Moved out of the tigera-operator chart (managementCluster.service.enabled: false) so the
+# chart no longer renders the calico-system Namespace. Copied from the chart's
+# templates/mcm/externalservice.yaml as rendered with this cluster's values.
+apiVersion: v1
+kind: Service
+metadata:
+  name: calico-manager-mcm
+  namespace: calico-system
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  type: ClusterIP
+  selector:
+    k8s-app: calico-manager
+  ports:
+  - port: 9449
+    targetPort: 9449
+    protocol: TCP
