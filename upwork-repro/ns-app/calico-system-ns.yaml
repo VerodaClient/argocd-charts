@@ -1,0 +1,10 @@
+# Mirrors Upwork's namespace app: they pre-create calico-system (security principals, quotas)
+# before deploying Calico. Prune/Delete=false so Argo can never remove it.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: calico-system
+  labels:
+    app.upwork.com/runtime: eks
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false

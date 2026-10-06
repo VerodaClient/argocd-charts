@@ -1,0 +1,5 @@
+apiVersion: v2
+name: calico-enterprise-configuration
+description: Stand-in for Upwork's config chart (OIDC secret + Authentication)
+type: application
+version: 0.0.92

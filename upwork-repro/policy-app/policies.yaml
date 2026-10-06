@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: upwork-repro
+---
+# Upwork's standard policy-chart pattern: explicit empty source.
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: repro-source-empty
+  namespace: upwork-repro
+spec:
+  selector: app == 'nothing-matches-this'
+  types:
+  - Ingress
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source: {}
+    destination:
+      ports:
+      - 8080
+---
+# Control: identical except source omitted.
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: repro-source-omitted
+  namespace: upwork-repro
+spec:
+  selector: app == 'nothing-matches-this'
+  types:
+  - Ingress
+  ingress:
+  - action: Allow
+    protocol: TCP
+    destination:
+      ports:
+      - 8080

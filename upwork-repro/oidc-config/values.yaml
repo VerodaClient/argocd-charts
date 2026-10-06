@@ -1,0 +1,5 @@
+oidc:
+  clientId: repro-client-id
+  clientSecret: repro-client-secret
+  issuerURL: https://accounts.google.com
+  managerDomain: https://leonargomcm.training.tigera.ca

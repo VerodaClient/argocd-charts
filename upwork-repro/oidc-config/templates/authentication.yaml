@@ -1,0 +1,10 @@
+apiVersion: operator.tigera.io/v1
+kind: Authentication
+metadata:
+  name: tigera-secure
+spec:
+  managerDomain: {{ .Values.oidc.managerDomain }}
+  oidc:
+    issuerURL: {{ .Values.oidc.issuerURL }}
+    usernameClaim: email
+    emailVerification: InsecureSkip
