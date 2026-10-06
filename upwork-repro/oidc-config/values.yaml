@@ -1,5 +1,5 @@
 oidc:
   clientId: repro-client-id
-  clientSecret: repro-client-secret
+  clientSecret: repro-client-secret-ROTATED
   issuerURL: https://accounts.google.com
   managerDomain: https://leonargomcm.training.tigera.ca
