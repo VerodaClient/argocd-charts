@@ -1,6 +1,6 @@
 # Must match charts/calico-enterprise/Chart.yaml -> tigera-operator version.
 ce:
-  version: v3.23.2
+  version: v3.22.5
 
 mgmtclustercert:
   enabled: true
