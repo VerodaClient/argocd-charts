@@ -14,5 +14,5 @@ tcp:
   # store", accepts the TCP connection with no backend, and guardian crashloops on a
   # 60s TLS dial timeout with no certificate error to point you at the cause.
   # Run hack/verify-mcm.sh after any version change.
-#  9449: calico-system/calico-manager-mcm:9449
-  9449: tigera-manager/tigera-manager-mcm:9449
+  9449: calico-system/calico-manager-mcm:9449
+#  9449: tigera-manager/tigera-manager-mcm:9449
