@@ -124,7 +124,6 @@ tigera-operator:
     address: leonargomcm.training.tigera.ca:9449 
     service:
       enabled: true
-      createNamespace: false
       annotations:
       - key: service.beta.kubernetes.io/aws-load-balancer-scheme
         value: "internet-facing"

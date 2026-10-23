@@ -33,7 +33,6 @@ dependencies:
   # Upgrade path for the CRD-migration test: v3.21.2 -> v3.22.6 -> v3.23.1
   # (or v3.21.2 -> v3.23.1 direct WITH upgrade-mitigations/ci-2016-apiserver-guard.yaml
   # pre-staged, which is the path Upwork will actually want).
-  # CI-2072 test: published v3.23.2 chart + ONLY calico-private PR #14867 (createNamespace toggle)
   - name: tigera-operator
     version: v3.23.2
-    repository: file://./vendor/tigera-operator
+    repository: https://downloads.tigera.io/ee/charts
