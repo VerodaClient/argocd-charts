@@ -1,0 +1,82 @@
+{{- if .Values.calicoctl.enabled }}
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: calicoctl-install
+  namespace: {{.Release.Namespace}}
+  labels:
+    k8s-app: calicoctl-install
+spec:
+  selector:
+    matchLabels:
+      k8s-app: calicoctl-install
+  template:
+    metadata:
+      labels:
+        k8s-app: calicoctl-install
+      annotations:
+        # This, along with the CriticalAddonsOnly toleration below,
+        # marks the pod as a critical add-on, ensuring it gets
+        # priority scheduling and that its resources are reserved
+        # if it ever gets evicted.
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+        # Make sure this gets scheduled on all nodes.
+        - effect: NoSchedule
+          operator: Exists
+        # Mark the pod as a critical add-on for rescheduling.
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+      # Minimize downtime during a rolling upgrade or deletion; tell Kubernetes to do a "force
+      # deletion": https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods.
+      terminationGracePeriodSeconds: 0
+      priorityClassName: system-node-critical
+{{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{- range $key, $value := .Values.imagePullSecrets }}
+        - name: {{ $key }}
+{{- end }}
+{{- end }}
+      initContainers:
+        # This container installs the calicoctl binary.
+        - name: installer
+          image: {{ join ":" (list .Values.calicoctl.image .Values.calicoctl.tag) }}
+          # Overwrite the entrypoint of calicoctl
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+                set -e
+                cp /usr/bin/calicoctl /host/bindir/calicoctl.bin
+
+                cat <<EOF>/host/bindir/calicoctl
+                export DATASTORE_TYPE=kubernetes
+                export KUBECONFIG=/etc/cni/net.d/calico-kubeconfig
+
+                exec {{ .Values.calicoctl.binPath }}/calicoctl.bin \$*
+                EOF
+
+                chmod +x /host/bindir/calicoctl
+
+          volumeMounts:
+            - mountPath: /host/bindir
+              name: calicoctl-bin-dir
+      containers:
+        # This container sleeps forever. It can't exit since the DaemonSet would restart the pod
+        - name: sleeper
+          image: {{ join ":" (list .Values.calicoctl.image .Values.calicoctl.tag) }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "while /bin/true; do sleep 600; done"
+      volumes:
+        - name: calicoctl-bin-dir
+          hostPath:
+            type: DirectoryOrCreate
+            path: {{ .Values.calicoctl.binPath }}
+{{- end }}

@@ -1,0 +1,17 @@
+{{ if .Values.managementClusterConnection.enabled }}
+{{ if or (and .Values.managementClusterConnection.management.base64.tls.crt .Values.managementClusterConnection.managed.base64.tls.crt .Values.managementClusterConnection.managed.base64.tls.key) (and .Values.managementClusterConnection.management.tls.crt .Values.managementClusterConnection.managed.tls.crt .Values.managementClusterConnection.managed.tls.key) }}
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tigera-managed-cluster-connection
+  namespace: {{.Release.Namespace}}
+data:
+  # This is the certificate of the management cluster side of the tunnel.
+  management-cluster.crt: {{ default .Values.managementClusterConnection.management.base64.tls.crt .Values.managementClusterConnection.management.tls.crt }}
+  # The certificate and private key that the managed cluster uses to connect to a management cluster.
+  managed-cluster.crt: {{ default .Values.managementClusterConnection.managed.base64.tls.crt .Values.managementClusterConnection.managed.tls.crt }}
+  managed-cluster.key: {{ default .Values.managementClusterConnection.managed.base64.tls.key .Values.managementClusterConnection.managed.tls.key }}
+
+{{ end }}
+{{ end }}

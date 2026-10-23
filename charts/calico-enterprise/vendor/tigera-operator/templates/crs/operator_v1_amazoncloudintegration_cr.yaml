@@ -1,0 +1,11 @@
+{{ if .Values.amazonCloudIntegration.enabled }}
+{{ $spec := omit .Values.amazonCloudIntegration "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: AmazonCloudIntegration
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}
