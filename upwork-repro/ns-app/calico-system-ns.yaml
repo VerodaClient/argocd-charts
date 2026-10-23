@@ -1,0 +1,8 @@
+# CI-2072 lookalike: Upwork's wave-1 namespace app owns calico-system
+# (security principals, quotas) before Calico deploys.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: calico-system
+  labels:
+    app.upwork.com/runtime: eks
