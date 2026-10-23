@@ -1,0 +1,11 @@
+{{ if .Values.authentication.enabled }}
+{{ $spec := omit .Values.authentication "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: Authentication
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}

@@ -1,0 +1,7 @@
+{{- with .Values.licenseKeyContent }}
+{{- if lookup "apiextensions.k8s.io/v1" "CustomResourceDefinition" "" "licensekeys.projectcalico.org" }}
+{{ . | toString | nindent 0 }}
+{{- else }}
+{{ . | toString | replace "projectcalico.org/v3" "crd.projectcalico.org/v1" | nindent 0 }}
+{{- end }}
+{{- end }}

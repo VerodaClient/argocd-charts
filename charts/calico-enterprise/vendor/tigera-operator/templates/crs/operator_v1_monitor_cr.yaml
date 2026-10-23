@@ -1,0 +1,11 @@
+{{ if .Values.monitor.enabled }}
+{{ $spec := omit .Values.monitor "enabled" }}
+
+apiVersion: operator.tigera.io/v1
+kind: Monitor
+metadata:
+  name: tigera-secure
+spec:
+{{ $spec | toYaml | indent 2 }}
+
+{{ end }}
