@@ -9,6 +9,6 @@ metadata:
   name: 1f1721362d192261
   namespace: tigera-lynx
   labels:
-    lynx.tigera.io/quarantine: "true"
+    lynx.tigera.io/quarantine: "false"
   annotations:
     argocd.argoproj.io/sync-options: ServerSideApply=true,Validate=false,Prune=false,Delete=false
