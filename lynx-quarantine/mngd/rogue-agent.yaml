@@ -1,0 +1,14 @@
+# Quarantine the shadow agent shadow-agents/rogue-agent (Deployment).
+# The detector creates and owns this AgenticWorkload, so Argo only PATCHES it:
+#   - name is the detector's hash, from: kubectl get agenticworkloads -n tigera-lynx
+#   - Prune=false,Delete=false so removing this file never deletes the detector's CR
+# To lift the quarantine, set the label to "false" (don't delete the file).
+apiVersion: lynx.tigera.io/v1
+kind: AgenticWorkload
+metadata:
+  name: 1f1721362d192261
+  namespace: tigera-lynx
+  labels:
+    lynx.tigera.io/quarantine: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true,Validate=false,Prune=false,Delete=false

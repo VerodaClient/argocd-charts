@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mngd-lynx-quarantine
+  namespace: argocd
+spec:
+  project: dev-team-1
+  destination:
+    name: ce-mngd
+    namespace: tigera-lynx
+  source:
+    repoURL: 'git@github.com:VerodaClient/argocd-charts.git'
+    targetRevision: HEAD
+    path: lynx-quarantine/mngd
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
